@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CurrencyExchange.MainPage">
+
+    <ScrollView>
+        <!-- Setup definitions for the Grid -->
+        <Grid>
+            <!-- Creating 9 defined Grid Rows -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- Header Image -->
+                <RowDefinition Height="Auto" />
+                <!-- Title -->
+                <RowDefinition Height="Auto" />
+                <!-- Instructions -->
+                <RowDefinition Height="Auto" />
+                <!-- Entry + Pickers -->
+                <RowDefinition Height="Auto" />
+                <!-- Submit Button -->
+                <RowDefinition Height="Auto" />
+                <!-- Result -->
+                <RowDefinition Height="Auto" />
+                <!-- Additional Info -->
+                <RowDefinition Height="Auto" />
+                <!-- RoboHash Image -->
+                <RowDefinition Height="Auto" />
+                <!-- Robo Name -->
+                <RowDefinition Height="Auto" />
+                <!-- JSON Editor + Toggle -->
+            </Grid.RowDefinitions>
+
+            <!-- Creating 3 flexible Grid Columns -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Header Image -->
+            <Image 
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            Source="exchangecoins.png"
+            HeightRequest="185"
+            Aspect="AspectFit"
+            SemanticProperties.Description="various coins" />
+
+            <!-- Title -->
+            <Label 
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Text="Currency Exchange Calculator"
+            Style="{StaticResource Headline}"
+            SemanticProperties.HeadingLevel="Level1"
+            HorizontalTextAlignment="Center" />
+
+            <!-- Instructions -->
+            <Label 
+            Grid.Row="2"
+            Grid.Column="0"
+            Text="Enter amount:"
+            HorizontalTextAlignment="Start"
+            Margin="10,0"/>
+            
+            <Label 
+            Grid.Row="2"
+            Grid.Column="1"
+            Text="From currency:"
+            HorizontalTextAlignment="Start"
+            Margin="10,0"/>
+            
+            <Label 
+            Grid.Row="2"
+            Grid.Column="2"
+            Text="To currency:"
+            HorizontalTextAlignment="Start"
+            Margin="10,0"/>
+
+            <!-- Entry and Pickers -->
+            <Entry 
+            Grid.Row="3"
+            Grid.Column="0"
+            Margin="10,0"
+            x:Name="ValueDecimal"
+            Placeholder="Enter amount"
+            Keyboard="Numeric" />
+
+            <Picker 
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="10,0"
+            x:Name="FromCurrencyPicker" />
+
+            <Picker 
+            Grid.Row="3"
+            Grid.Column="2"
+            Margin="10,0"
+            x:Name="ToCurrencyPicker" />
+
+            <!-- Submit Button -->
+            <Button 
+            Grid.Row="4"
+            Grid.Column="1"
+            Margin="50,10"
+            Text="Convert"
+            Clicked="OnSubmitClicked" />
+
+            <!-- Conversion Result -->
+            <Label 
+            Grid.Row="5"
+            Grid.ColumnSpan="3"
+            HorizontalTextAlignment="Center"
+            x:Name="CurrencyResult"
+            Text="Click Convert to calculate"
+            FontSize="18"
+            TextColor="SpringGreen" />
+
+            <!-- Additional Info -->
+            <Label 
+            Grid.Row="6"
+            Grid.ColumnSpan="3"
+            HorizontalTextAlignment="Center"
+            x:Name="AdditionalInfo" />
+
+            <!-- RoboHash Image -->
+            <Image 
+            x:Name="roboImage"
+            Grid.Row="7"
+            Grid.ColumnSpan="3"
+            HeightRequest="185"
+            Aspect="AspectFit" />
+
+            <!-- Robo Name -->
+            <Label
+            x:Name="roboName"
+            Grid.Row="8"
+            Grid.ColumnSpan="3"
+            Margin="10,10"
+            HorizontalTextAlignment="Center"
+            Text="" />
+
+            <!-- JSON Response Toggle + Editor -->
+            <StackLayout Grid.Row="9" Grid.ColumnSpan="3" Orientation="Vertical" Padding="10,0">
+                <Button
+                Text="Show/Hide JSON" 
+                Clicked="OnToggleJsonClicked"/>
+                <Editor 
+                x:Name="apiResponseEditor" 
+                IsVisible="False" 
+                HeightRequest="200" 
+                FontSize="12" 
+                AutoSize="TextChanges"/>
+            </StackLayout>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>
