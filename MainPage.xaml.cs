@@ -78,7 +78,7 @@ namespace CurrencyExchange
                     $"\nThis information is provided by\n{Provider}";
 
                 roboImage.Source = $"https://www.robohash.org/{convertedAmount}{toCurrency}.png";
-                roboName.Text = $"This robot is named '{convertedAmount} {toCurrency}'.";
+                roboName.Text = $"This robot is named '{convertedAmount:F2} {toCurrency}'.";
             }
             catch (Exception ex)
             {
