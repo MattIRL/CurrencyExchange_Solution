@@ -68,13 +68,13 @@ namespace CurrencyExchange
                 var root = doc.RootElement;
 
                 //string pairKey = $"{toCurrency}";
-                decimal liveRate = root.GetProperty("conversion_rates").GetProperty(toCurrency).GetDecimal();
+                decimal exchangeRate = root.GetProperty("conversion_rates").GetProperty(toCurrency).GetDecimal();
                 string? Provider = root.GetProperty("documentation").GetString();
-                decimal convertedAmount = amount * liveRate;
+                decimal convertedAmount = amount * exchangeRate;
 
                 // Update UI with real data
                 CurrencyResult.Text = $"{amount:F2} {fromCurrency} is worth {convertedAmount:F2} {toCurrency}.";
-                AdditionalInfo.Text = $"\nThis is an Exchange rate of 1 : {liveRate:F4}" +
+                AdditionalInfo.Text = $"\nThis is an Exchange rate of 1 : {exchangeRate:F4}" +
                     $"\nThis information is provided by\n{Provider}";
 
                 roboImage.Source = $"https://www.robohash.org/{convertedAmount}{toCurrency}.png";
