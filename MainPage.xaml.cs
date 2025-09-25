@@ -19,7 +19,7 @@ namespace CurrencyExchange
         "XCG", "XDR", "XOF", "XPF", "YER", "ZAR", "ZMW", "ZWL"};
 
         private readonly HttpClient httpClient = new HttpClient();
-        private const string ApiKey = "c4961e9f3d777a718be0b652";
+        // private const string ApiKey = "INSERT-API-KEY";
 
         public MainPage()
         {
@@ -54,8 +54,8 @@ namespace CurrencyExchange
 
             try
             {
-                string url = $"https://v6.exchangerate-api.com/v6/{ApiKey}/latest/{fromCurrency}";
-                // string url = $"https://open.er-api.com/v6/latest/{fromCurrency}"; // For open API calls (no key)
+                // string url = $"https://v6.exchangerate-api.com/v6/{ApiKey}/latest/{fromCurrency}";
+                string url = $"https://open.er-api.com/v6/latest/{fromCurrency}"; // For open API calls (no key)
                 var response = await httpClient.GetStringAsync(url);
 
                 // Show raw JSON in collapsible editor
@@ -68,8 +68,8 @@ namespace CurrencyExchange
                 var root = doc.RootElement;
 
                 //string pairKey = $"{toCurrency}";
-                decimal exchangeRate = root.GetProperty("conversion_rates").GetProperty(toCurrency).GetDecimal();
-                string? Provider = root.GetProperty("documentation").GetString();
+                decimal exchangeRate = root.GetProperty("rates").GetProperty(toCurrency).GetDecimal();
+                string? Provider = root.GetProperty("provider").GetString();
                 decimal convertedAmount = amount * exchangeRate;
 
                 // Update UI with real data
@@ -80,6 +80,8 @@ namespace CurrencyExchange
                 roboImage.Source = $"https://www.robohash.org/{convertedAmount}{toCurrency}.png";
                 roboName.Text = $"This robot is named '{convertedAmount:F2} {toCurrency}'.";
             }
+
+            // Error handling catch statement
             catch (Exception ex)
             {
                 CurrencyResult.Text = $"Error retrieving exchange rate: {ex.Message}";
