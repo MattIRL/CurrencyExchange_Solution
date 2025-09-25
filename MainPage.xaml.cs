@@ -58,24 +58,26 @@ namespace CurrencyExchange
                 string url = $"https://open.er-api.com/v6/latest/{fromCurrency}"; // For open API calls (no key)
                 var response = await httpClient.GetStringAsync(url);
 
-                // Show raw JSON in collapsible editor
-                apiResponseEditor.Text = JsonSerializer.Serialize(
-                    JsonDocument.Parse(response).RootElement,
-                    new JsonSerializerOptions { WriteIndented = true }
-                );
+
 
                 using var doc = JsonDocument.Parse(response);
                 var root = doc.RootElement;
 
+                // Show raw JSON in collapsible editor
+                apiResponseEditor.Text = JsonSerializer.Serialize(
+                    root,
+                    new JsonSerializerOptions { WriteIndented = true }
+                );
+
                 //string pairKey = $"{toCurrency}";
                 decimal exchangeRate = root.GetProperty("rates").GetProperty(toCurrency).GetDecimal();
-                string? Provider = root.GetProperty("provider").GetString();
+                string? provider = root.GetProperty("provider").GetString();
                 decimal convertedAmount = amount * exchangeRate;
 
                 // Update UI with real data
                 CurrencyResult.Text = $"{amount:F2} {fromCurrency} is worth {convertedAmount:F2} {toCurrency}.";
                 AdditionalInfo.Text = $"\nThis is an Exchange rate of 1 : {exchangeRate:F4}" +
-                    $"\nThis information is provided by\n{Provider}";
+                    $"\nThis information is provided by\n{provider}";
 
                 roboImage.Source = $"https://www.robohash.org/{convertedAmount}{toCurrency}.png";
                 roboName.Text = $"This robot is named '{convertedAmount:F2} {toCurrency}'.";
