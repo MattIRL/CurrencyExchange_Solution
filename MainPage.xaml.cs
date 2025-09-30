@@ -19,7 +19,6 @@ namespace CurrencyExchange
         "XCG", "XDR", "XOF", "XPF", "YER", "ZAR", "ZMW", "ZWL"};
 
         private readonly HttpClient httpClient = new HttpClient();
-        // private const string ApiKey = "INSERT-API-KEY";
 
         public MainPage()
         {
