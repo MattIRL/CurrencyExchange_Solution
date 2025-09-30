@@ -65,8 +65,8 @@ namespace CurrencyExchange
 
                 //string pairKey = $"{toCurrency}";
                 decimal exchangeRate = root.GetProperty("rates").GetProperty(toCurrency).GetDecimal();
-                string? provider = root.GetProperty("provider").GetString();
                 decimal convertedAmount = amount * exchangeRate;
+                string? provider = root.GetProperty("provider").GetString();
 
                 // Update UI with real data
                 CurrencyResult.Text = $"{amount:F2} {fromCurrency} is worth {convertedAmount:F2} {toCurrency}.";
