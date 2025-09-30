@@ -50,7 +50,6 @@ namespace CurrencyExchange
             // Live API Call (async)
             try
             {
-                // string url = $"https://v6.exchangerate-api.com/v6/{ApiKey}/latest/{fromCurrency}";
                 string url = $"https://open.er-api.com/v6/latest/{fromCurrency}"; // For open API calls (no key)
                 var response = await httpClient.GetStringAsync(url);
                 using var doc = JsonDocument.Parse(response);
