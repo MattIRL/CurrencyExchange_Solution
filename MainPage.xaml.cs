@@ -26,7 +26,6 @@ namespace CurrencyExchange
             InitializeComponent();
             FromCurrencyPicker.ItemsSource = currencyList;
             ToCurrencyPicker.ItemsSource = currencyList;
-
             apiResponseEditor.IsVisible = false;
         }
 
@@ -49,17 +48,12 @@ namespace CurrencyExchange
                 return;
             }
 
-
             // Live API Call (async)
-
             try
             {
                 // string url = $"https://v6.exchangerate-api.com/v6/{ApiKey}/latest/{fromCurrency}";
                 string url = $"https://open.er-api.com/v6/latest/{fromCurrency}"; // For open API calls (no key)
                 var response = await httpClient.GetStringAsync(url);
-
-
-
                 using var doc = JsonDocument.Parse(response);
                 var root = doc.RootElement;
 
@@ -78,7 +72,8 @@ namespace CurrencyExchange
                 CurrencyResult.Text = $"{amount:F2} {fromCurrency} is worth {convertedAmount:F2} {toCurrency}.";
                 AdditionalInfo.Text = $"\nThis is an Exchange rate of 1 : {exchangeRate:F4}" +
                     $"\nThis information is provided by\n{provider}";
-
+                
+                // RoboHash image and text update
                 roboImage.Source = $"https://www.robohash.org/{convertedAmount}{toCurrency}.png";
                 roboName.Text = $"This robot is named '{convertedAmount:F2} {toCurrency}'.";
             }
